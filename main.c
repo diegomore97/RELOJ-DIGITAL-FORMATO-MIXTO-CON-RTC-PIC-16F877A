@@ -59,6 +59,12 @@ void validaHoras(void) {
     } else if (!contDecHora && *digitoActual == -1) {
         contDecHora = 2;
         *digitoActual = 3;
+    } else if (contDecHora == 1 && *digitoActual == 10) {
+        contDecHora = 2;
+        *digitoActual = 0;
+    } else if (!contDecHora && *digitoActual == 10) {
+        contDecHora = 1;
+        *digitoActual = 0;
     }
 }
 
@@ -271,8 +277,14 @@ void convertirFormato(void) {
 
         contDecHoraMostrar = &contDecHoraAux;
         contHoraMostrar = &contHoraAux;
-    }
+    } else if (!numeroEvaluar) {
 
+        contDecHoraAux = 1;
+        contHoraAux = 2;
+
+        contDecHoraMostrar = &contDecHoraAux;
+        contHoraMostrar = &contHoraAux;
+    }
 
 }
 
