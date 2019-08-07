@@ -19,10 +19,10 @@
 unsigned char numeros[] = {63, 6, 91, 79, 102, 109, 125, 71, 127, 103};
 // 0  1   2   3   4    5    6    7   8    9
 
-signed int* contDecHoraMostrar, *contHoraMostrar, *digitoActual;
-signed int contDecHora = 1, contHora = 2, contDecMin = 0, contMin = 0;
+signed char* contDecHoraMostrar, *contHoraMostrar, *digitoActual;
+signed char contDecHora = 1, contHora = 2, contDecMin = 0, contMin = 0;
 unsigned char contadorBotonSet, formato, AmPm;
-signed int contDecHoraAux, contHoraAux;
+signed char contDecHoraAux, contHoraAux;
 
 
 void dameTemperatura(void);
@@ -81,7 +81,7 @@ void dameTemperatura(void) {
 
     while (BOTON_TEMPERATURA); //ANTIREBOTE
 
-    int repeticiones = 400;
+    short int repeticiones = 400;
     unsigned char unidades, decenas, temperatura;
 
     temperatura = leer_rtc(0x11);
@@ -186,7 +186,7 @@ void controlBotones(void) {
 
 void parpadearDigitos(void) {
 
-    unsigned int repeticiones = 5;
+    unsigned char repeticiones = 5;
     while (repeticiones) {
 
         LATD = numeros[contMin];
@@ -276,7 +276,7 @@ void verificaAmPm(void) {
 }
 
 void convertirFormato(void) {
-    unsigned int numeroEvaluar = (contDecHora * 10) + contHora;
+    unsigned char numeroEvaluar = (contDecHora * 10) + contHora;
     switch (numeroEvaluar) {
         case 0:
             contDecHoraAux = 1;
@@ -463,7 +463,7 @@ void main(void) {
     contDecHoraMostrar = &contDecHora;
     contHoraMostrar = &contHora;
 
-    //setRtcDefault(); //Programar el pic sin comentar esta linea y despues volver a 
+    setRtcDefault(); //Programar el pic sin comentar esta linea y despues volver a 
     //Programar el pic con esta linea comentada
 
     while (1) {
@@ -496,4 +496,6 @@ void main(void) {
     }
     return;
 }
+
+
 
