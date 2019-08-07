@@ -39,54 +39,6 @@ void setRtcDefault(void);
 void setRtcHora(void);
 void setRtcMinutos(void);
 
-void main(void) {
-
-    TRISB = 1; //PUERTO B COMO ENTRADA  | LECTURA BOTONES
-    TRISD = 0; //PUERTO D COMO SALIDA   | CONTROL DISPLAYS
-    TRISA = 0; //PUERTO A COMO ENTRADA  | CONTROL TRANSISTORES
-    ADCON1bits.PCFG = 0b0111; //TODO DIGITAL
-    TRISCbits.TRISC0 = 0; //INDICADOR AM
-    TRISCbits.TRISC1 = 0; //INDICADOR PM
-
-    i2c_iniciar();
-
-    contDecHoraMostrar = &contDecHora;
-    contHoraMostrar = &contHora;
-
-    //setRtcDefault(); //Programar el pic sin comentar esta linea y despues volver a 
-    //Programar el pic con esta linea comentada
-
-    while (1) {
-
-        if (BOTON_TEMPERATURA&&!contadorBotonSet) //BOTON MOSTRAR TEMPERATURA
-        {
-            dameTemperatura();
-        } else if (BOTON_FORMATO&&!contadorBotonSet) //BOTON PARA CAMBIO DE FORMATO
-        {
-            while (BOTON_FORMATO); //ANTIREBOTE
-            formato = ~formato;
-        } else if ((BOTON_SET) || ((BOTON_INCREMENTAR || BOTON_DECREMENTAR) && contadorBotonSet))
-            controlBotones(); //BOTONES PARA CAMBIAR LA HORA
-
-        if (!formato) {
-            contDecHoraMostrar = &contDecHora;
-            contHoraMostrar = &contHora;
-            LATC = 0; //APAGAR INDICADOR DE AM|PM CUANDO EL FORMATO SEA DE 24 HRS.
-        } else {
-            verificaAmPm();
-            convertirFormato();
-        }
-
-        if (!contadorBotonSet) {
-            dameHoraActual();
-            mostrarDigitos();
-        } else {
-            parpadearDigitos();
-        }
-    }
-    return;
-}
-
 void validaMinutos(void) {
     if (*digitoActual == -1) {
         *digitoActual = 9;
@@ -495,5 +447,53 @@ void setRtcMinutos(void) {
     minutosRtc |= (contMin) & 0x0F;
     escribe_rtc(0x01, minutosRtc);
 
+}
+
+void main(void) {
+
+    TRISB = 1; //PUERTO B COMO ENTRADA  | LECTURA BOTONES
+    TRISD = 0; //PUERTO D COMO SALIDA   | CONTROL DISPLAYS
+    TRISA = 0; //PUERTO A COMO ENTRADA  | CONTROL TRANSISTORES
+    ADCON1bits.PCFG = 0b0111; //TODO DIGITAL
+    TRISCbits.TRISC0 = 0; //INDICADOR AM
+    TRISCbits.TRISC1 = 0; //INDICADOR PM
+
+    i2c_iniciar();
+
+    contDecHoraMostrar = &contDecHora;
+    contHoraMostrar = &contHora;
+
+    //setRtcDefault(); //Programar el pic sin comentar esta linea y despues volver a 
+    //Programar el pic con esta linea comentada
+
+    while (1) {
+
+        if (BOTON_TEMPERATURA&&!contadorBotonSet) //BOTON MOSTRAR TEMPERATURA
+        {
+            dameTemperatura();
+        } else if (BOTON_FORMATO&&!contadorBotonSet) //BOTON PARA CAMBIO DE FORMATO
+        {
+            while (BOTON_FORMATO); //ANTIREBOTE
+            formato = ~formato;
+        } else if ((BOTON_SET) || ((BOTON_INCREMENTAR || BOTON_DECREMENTAR) && contadorBotonSet))
+            controlBotones(); //BOTONES PARA CAMBIAR LA HORA
+
+        if (!formato) {
+            contDecHoraMostrar = &contDecHora;
+            contHoraMostrar = &contHora;
+            LATC = 0; //APAGAR INDICADOR DE AM|PM CUANDO EL FORMATO SEA DE 24 HRS.
+        } else {
+            verificaAmPm();
+            convertirFormato();
+        }
+
+        if (!contadorBotonSet) {
+            dameHoraActual();
+            mostrarDigitos();
+        } else {
+            parpadearDigitos();
+        }
+    }
+    return;
 }
 
