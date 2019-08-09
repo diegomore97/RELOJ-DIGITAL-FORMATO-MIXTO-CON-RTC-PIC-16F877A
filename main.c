@@ -1,6 +1,6 @@
-#define _XTAL_FREQ 4000000
 #include "config.h"
 #include <xc.h>
+#define _XTAL_FREQ 4000000
 #include "I2C.h"
 #include "RTC.h"
 
@@ -17,7 +17,7 @@
 //son 5 segundos en tiempo real y 50 para simulacion en Proteus
 
 unsigned char numeros[] = {63, 6, 91, 79, 102, 109, 125, 71, 127, 103};
-// 0  1   2   3   4    5    6    7   8    9
+                         // 0  1   2   3   4    5    6    7   8    9
 
 signed char* contDecHoraMostrar, *contHoraMostrar, *digitoActual;
 signed char contDecHora = 1, contHora = 2, contDecMin = 0, contMin = 0;
@@ -463,7 +463,7 @@ void main(void) {
     contDecHoraMostrar = &contDecHora;
     contHoraMostrar = &contHora;
 
-    setRtcDefault(); //Programar el pic sin comentar esta linea y despues volver a 
+    //setRtcDefault(); //Programar el pic sin comentar esta linea y despues volver a 
     //Programar el pic con esta linea comentada
 
     while (1) {
@@ -496,6 +496,4 @@ void main(void) {
     }
     return;
 }
-
-
 
