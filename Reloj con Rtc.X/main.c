@@ -470,6 +470,13 @@ void dameHoraActual(void) //RTC DS3231
     auxHora = convertirDato(leer_rtc(0x02));
     contHora = auxHora % 10;
     contDecHora = (auxHora / 10) % 10;
+
+    if ((((contDecHora >= 0) && (contDecHora <= 2)) && ((contHora >= 0) && (contHora <= 9)))
+            && (((contDecMin >= 0) && (contDecMin <= 5)) && ((contMin >= 0) && (contMin <= 9)))) //Hora valida!
+    {
+    } else
+        setRtcDefault();
+
 }
 
 void setRtcDefault(void) {
@@ -489,18 +496,22 @@ void setRtcHora(void) {
 
     unsigned char horaRtc;
 
-    horaRtc = ((contDecHora) & 0x0F) << 4;
-    horaRtc |= (contHora) & 0x0F;
-    escribe_rtc(0x02, horaRtc);
+    if (((contDecHora >= 0) && (contDecHora <= 2)) && ((contHora >= 0) && (contHora <= 9))) {
+        horaRtc = ((contDecHora) & 0x0F) << 4;
+        horaRtc |= (contHora) & 0x0F;
+        escribe_rtc(0x02, horaRtc);
+    }
 
 }
 
 void setRtcMinutos(void) {
     unsigned char minutosRtc;
 
-    minutosRtc = ((contDecMin) & 0x0F) << 4;
-    minutosRtc |= (contMin) & 0x0F;
-    escribe_rtc(0x01, minutosRtc);
+    if (((contDecMin >= 0) && (contDecMin <= 5)) && ((contMin >= 0) && (contMin <= 9))) {
+        minutosRtc = ((contDecMin) & 0x0F) << 4;
+        minutosRtc |= (contMin) & 0x0F;
+        escribe_rtc(0x01, minutosRtc);
+    }
 
 }
 

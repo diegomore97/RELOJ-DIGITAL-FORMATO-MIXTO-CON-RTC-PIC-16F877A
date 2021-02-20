@@ -64,8 +64,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 "278 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 278: extern volatile unsigned char PORTC __attribute__((address(0x007)));
 [v _PORTC `Vuc ~T0 @X0 0 e@7 ]
+"42 main.c
+[; ;main.c: 42: void setRtcDefault(void);
+[v _setRtcDefault `(v ~T0 @X0 0 ef ]
 [p mainexit ]
-"1375
+"1375 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1375: extern volatile unsigned char TRISB __attribute__((address(0x086)));
 [v _TRISB `Vuc ~T0 @X0 0 e@134 ]
 "1499
@@ -1829,261 +1832,292 @@ Version 4.0 HI-TECH Software Intermediate Code
 "472
 [; ;main.c: 472:     contDecHora = (auxHora / 10) % 10;
 [e = _contDecHora -> % / -> _auxHora `i -> 10 `i -> 10 `i `c ]
-"473
-[; ;main.c: 473: }
+"474
+[; ;main.c: 474:     if ((((contDecHora >= 0) && (contDecHora <= 2)) && ((contHora >= 0) && (contHora <= 9)))
+[e $ ! && && && >= -> _contDecHora `i -> 0 `i <= -> _contDecHora `i -> 2 `i && >= -> _contHora `i -> 0 `i <= -> _contHora `i -> 9 `i && && >= -> _contDecMin `i -> 0 `i <= -> _contDecMin `i -> 5 `i && >= -> _contMin `i -> 0 `i <= -> _contMin `i -> 9 `i 235  ]
+"476
+[; ;main.c: 476:     {
+{
+"477
+[; ;main.c: 477:     } else
+}
+[e $U 236  ]
+[e :U 235 ]
+"478
+[; ;main.c: 478:         setRtcDefault();
+[e ( _setRtcDefault ..  ]
+[e :U 236 ]
+"480
+[; ;main.c: 480: }
 [e :UE 234 ]
 }
-"475
-[; ;main.c: 475: void setRtcDefault(void) {
+"482
+[; ;main.c: 482: void setRtcDefault(void) {
 [v _setRtcDefault `(v ~T0 @X0 1 ef ]
 {
 [e :U _setRtcDefault ]
 [f ]
-"476
-[; ;main.c: 476:     unsigned char horaRtc;
+"483
+[; ;main.c: 483:     unsigned char horaRtc;
 [v _horaRtc `uc ~T0 @X0 1 a ]
-"478
-[; ;main.c: 478:     horaRtc = ((1) & 0x0F) << 4;
-[e = _horaRtc -> << & -> 1 `i -> 15 `i -> 4 `i `uc ]
-"480
-[; ;main.c: 480:     horaRtc |= (2) & 0x0F;
-[e =| _horaRtc -> & -> 2 `i -> 15 `i `uc ]
-"482
-[; ;main.c: 482:     escribe_rtc(0x02, horaRtc);
-[e ( _escribe_rtc (2 , -> -> 2 `i `uc _horaRtc ]
-"484
-[; ;main.c: 484:     escribe_rtc(0x01, 0);
-[e ( _escribe_rtc (2 , -> -> 1 `i `uc -> -> 0 `i `uc ]
 "485
-[; ;main.c: 485:     escribe_rtc(0x00, 0);
+[; ;main.c: 485:     horaRtc = ((1) & 0x0F) << 4;
+[e = _horaRtc -> << & -> 1 `i -> 15 `i -> 4 `i `uc ]
+"487
+[; ;main.c: 487:     horaRtc |= (2) & 0x0F;
+[e =| _horaRtc -> & -> 2 `i -> 15 `i `uc ]
+"489
+[; ;main.c: 489:     escribe_rtc(0x02, horaRtc);
+[e ( _escribe_rtc (2 , -> -> 2 `i `uc _horaRtc ]
+"491
+[; ;main.c: 491:     escribe_rtc(0x01, 0);
+[e ( _escribe_rtc (2 , -> -> 1 `i `uc -> -> 0 `i `uc ]
+"492
+[; ;main.c: 492:     escribe_rtc(0x00, 0);
 [e ( _escribe_rtc (2 , -> -> 0 `i `uc -> -> 0 `i `uc ]
-"486
-[; ;main.c: 486: }
-[e :UE 235 ]
+"493
+[; ;main.c: 493: }
+[e :UE 237 ]
 }
-"488
-[; ;main.c: 488: void setRtcHora(void) {
+"495
+[; ;main.c: 495: void setRtcHora(void) {
 [v _setRtcHora `(v ~T0 @X0 1 ef ]
 {
 [e :U _setRtcHora ]
 [f ]
-"490
-[; ;main.c: 490:     unsigned char horaRtc;
+"497
+[; ;main.c: 497:     unsigned char horaRtc;
 [v _horaRtc `uc ~T0 @X0 1 a ]
-"492
-[; ;main.c: 492:     horaRtc = ((contDecHora) & 0x0F) << 4;
+"499
+[; ;main.c: 499:     if (((contDecHora >= 0) && (contDecHora <= 2)) && ((contHora >= 0) && (contHora <= 9))) {
+[e $ ! && && >= -> _contDecHora `i -> 0 `i <= -> _contDecHora `i -> 2 `i && >= -> _contHora `i -> 0 `i <= -> _contHora `i -> 9 `i 239  ]
+{
+"500
+[; ;main.c: 500:         horaRtc = ((contDecHora) & 0x0F) << 4;
 [e = _horaRtc -> << & -> _contDecHora `i -> 15 `i -> 4 `i `uc ]
-"493
-[; ;main.c: 493:     horaRtc |= (contHora) & 0x0F;
+"501
+[; ;main.c: 501:         horaRtc |= (contHora) & 0x0F;
 [e =| _horaRtc -> & -> _contHora `i -> 15 `i `uc ]
-"494
-[; ;main.c: 494:     escribe_rtc(0x02, horaRtc);
+"502
+[; ;main.c: 502:         escribe_rtc(0x02, horaRtc);
 [e ( _escribe_rtc (2 , -> -> 2 `i `uc _horaRtc ]
-"496
-[; ;main.c: 496: }
-[e :UE 236 ]
+"503
+[; ;main.c: 503:     }
 }
-"498
-[; ;main.c: 498: void setRtcMinutos(void) {
+[e :U 239 ]
+"505
+[; ;main.c: 505: }
+[e :UE 238 ]
+}
+"507
+[; ;main.c: 507: void setRtcMinutos(void) {
 [v _setRtcMinutos `(v ~T0 @X0 1 ef ]
 {
 [e :U _setRtcMinutos ]
 [f ]
-"499
-[; ;main.c: 499:     unsigned char minutosRtc;
+"508
+[; ;main.c: 508:     unsigned char minutosRtc;
 [v _minutosRtc `uc ~T0 @X0 1 a ]
-"501
-[; ;main.c: 501:     minutosRtc = ((contDecMin) & 0x0F) << 4;
+"510
+[; ;main.c: 510:     if (((contDecMin >= 0) && (contDecMin <= 5)) && ((contMin >= 0) && (contMin <= 9))) {
+[e $ ! && && >= -> _contDecMin `i -> 0 `i <= -> _contDecMin `i -> 5 `i && >= -> _contMin `i -> 0 `i <= -> _contMin `i -> 9 `i 241  ]
+{
+"511
+[; ;main.c: 511:         minutosRtc = ((contDecMin) & 0x0F) << 4;
 [e = _minutosRtc -> << & -> _contDecMin `i -> 15 `i -> 4 `i `uc ]
-"502
-[; ;main.c: 502:     minutosRtc |= (contMin) & 0x0F;
+"512
+[; ;main.c: 512:         minutosRtc |= (contMin) & 0x0F;
 [e =| _minutosRtc -> & -> _contMin `i -> 15 `i `uc ]
-"503
-[; ;main.c: 503:     escribe_rtc(0x01, minutosRtc);
+"513
+[; ;main.c: 513:         escribe_rtc(0x01, minutosRtc);
 [e ( _escribe_rtc (2 , -> -> 1 `i `uc _minutosRtc ]
-"505
-[; ;main.c: 505: }
-[e :UE 237 ]
+"514
+[; ;main.c: 514:     }
+}
+[e :U 241 ]
+"516
+[; ;main.c: 516: }
+[e :UE 240 ]
 }
 [v $root$_main `(v ~T0 @X0 0 e ]
-"507
-[; ;main.c: 507: void main(void) {
+"518
+[; ;main.c: 518: void main(void) {
 [v _main `(v ~T0 @X0 1 ef ]
 {
 [e :U _main ]
 [f ]
-"509
-[; ;main.c: 509:     TRISB = 1;
+"520
+[; ;main.c: 520:     TRISB = 1;
 [e = _TRISB -> -> 1 `i `uc ]
-"510
-[; ;main.c: 510:     TRISD = 0;
-[e = _TRISD -> -> 0 `i `uc ]
-"511
-[; ;main.c: 511:     TRISA = 0;
-[e = _TRISA -> -> 0 `i `uc ]
-"512
-[; ;main.c: 512:     ADCON1bits.PCFG = 0b0111;
-[e = . . _ADCON1bits 0 0 -> -> 7 `i `uc ]
-"513
-[; ;main.c: 513:     TRISCbits.TRISC0 = 0;
-[e = . . _TRISCbits 0 0 -> -> 0 `i `uc ]
-"514
-[; ;main.c: 514:     TRISCbits.TRISC1 = 0;
-[e = . . _TRISCbits 0 1 -> -> 0 `i `uc ]
-"516
-[; ;main.c: 516:     i2c_iniciar();
-[e ( _i2c_iniciar ..  ]
-"518
-[; ;main.c: 518:     contDecHoraMostrar = &contDecHora;
-[e = _contDecHoraMostrar &U _contDecHora ]
-"519
-[; ;main.c: 519:     contHoraMostrar = &contHora;
-[e = _contHoraMostrar &U _contHora ]
 "521
-[; ;main.c: 521:     PORTA = 0;
-[e = _PORTA -> -> 0 `i `uc ]
+[; ;main.c: 521:     TRISD = 0;
+[e = _TRISD -> -> 0 `i `uc ]
 "522
-[; ;main.c: 522:     PORTB = 0;
-[e = _PORTB -> -> 0 `i `uc ]
+[; ;main.c: 522:     TRISA = 0;
+[e = _TRISA -> -> 0 `i `uc ]
 "523
-[; ;main.c: 523:     PORTC = 0;
-[e = _PORTC -> -> 0 `i `uc ]
+[; ;main.c: 523:     ADCON1bits.PCFG = 0b0111;
+[e = . . _ADCON1bits 0 0 -> -> 7 `i `uc ]
 "524
-[; ;main.c: 524:     PORTD = 0;
-[e = _PORTD -> -> 0 `i `uc ]
+[; ;main.c: 524:     TRISCbits.TRISC0 = 0;
+[e = . . _TRISCbits 0 0 -> -> 0 `i `uc ]
+"525
+[; ;main.c: 525:     TRISCbits.TRISC1 = 0;
+[e = . . _TRISCbits 0 1 -> -> 0 `i `uc ]
+"527
+[; ;main.c: 527:     i2c_iniciar();
+[e ( _i2c_iniciar ..  ]
 "529
-[; ;main.c: 529:     while (1) {
-[e :U 240 ]
-{
-"531
-[; ;main.c: 531:         _delay((unsigned long)((3)*(4000000/4000.0)));
-[e ( __delay (1 -> * -> -> 3 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+[; ;main.c: 529:     contDecHoraMostrar = &contDecHora;
+[e = _contDecHoraMostrar &U _contDecHora ]
+"530
+[; ;main.c: 530:     contHoraMostrar = &contHora;
+[e = _contHoraMostrar &U _contHora ]
+"532
+[; ;main.c: 532:     PORTA = 0;
+[e = _PORTA -> -> 0 `i `uc ]
 "533
-[; ;main.c: 533:         if (PORTBbits.RB1&&!contadorBotonSet)
-[e $ ! && != -> . . _PORTBbits 0 1 `i -> 0 `i ! != -> _contadorBotonSet `i -> 0 `i 242  ]
+[; ;main.c: 533:     PORTB = 0;
+[e = _PORTB -> -> 0 `i `uc ]
 "534
-[; ;main.c: 534:         {
-{
+[; ;main.c: 534:     PORTC = 0;
+[e = _PORTC -> -> 0 `i `uc ]
 "535
-[; ;main.c: 535:             dameTemperatura();
-[e ( _dameTemperatura ..  ]
-"537
-[; ;main.c: 537:         } else if (PORTBbits.RB2&&!contadorBotonSet)
-}
-[e $U 243  ]
-[e :U 242 ]
-[e $ ! && != -> . . _PORTBbits 0 2 `i -> 0 `i ! != -> _contadorBotonSet `i -> 0 `i 244  ]
-"538
-[; ;main.c: 538:         {
-{
-"539
-[; ;main.c: 539:             antiRebote(2);
-[e ( _antiRebote (1 -> -> 2 `i `ui ]
-"541
-[; ;main.c: 541:             if (contadorBotonTemp != 2) {
-[e $ ! != -> _contadorBotonTemp `i -> 2 `i 245  ]
+[; ;main.c: 535:     PORTD = 0;
+[e = _PORTD -> -> 0 `i `uc ]
+"540
+[; ;main.c: 540:     while (1) {
+[e :U 244 ]
 {
 "542
-[; ;main.c: 542:                 formato = ~formato;
-[e = _formato -> ~ -> _formato `i `uc ]
-"543
-[; ;main.c: 543:             } else {
-}
-[e $U 246  ]
-[e :U 245 ]
-{
+[; ;main.c: 542:         _delay((unsigned long)((3)*(4000000/4000.0)));
+[e ( __delay (1 -> * -> -> 3 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
 "544
-[; ;main.c: 544:                 contadorBotonTemp = 0;
-[e = _contadorBotonTemp -> -> 0 `i `s ]
+[; ;main.c: 544:         if (PORTBbits.RB1&&!contadorBotonSet)
+[e $ ! && != -> . . _PORTBbits 0 1 `i -> 0 `i ! != -> _contadorBotonSet `i -> 0 `i 246  ]
 "545
-[; ;main.c: 545:             }
-}
-[e :U 246 ]
+[; ;main.c: 545:         {
+{
 "546
-[; ;main.c: 546:         } else if ((PORTBbits.RB0) || ((PORTBbits.RB1 || PORTBbits.RB2) && contadorBotonSet)) {
+[; ;main.c: 546:             dameTemperatura();
+[e ( _dameTemperatura ..  ]
+"548
+[; ;main.c: 548:         } else if (PORTBbits.RB2&&!contadorBotonSet)
 }
 [e $U 247  ]
-[e :U 244 ]
-[e $ ! || != -> . . _PORTBbits 0 0 `i -> 0 `i && || != -> . . _PORTBbits 0 1 `i -> 0 `i != -> . . _PORTBbits 0 2 `i -> 0 `i != -> _contadorBotonSet `i -> 0 `i 248  ]
+[e :U 246 ]
+[e $ ! && != -> . . _PORTBbits 0 2 `i -> 0 `i ! != -> _contadorBotonSet `i -> 0 `i 248  ]
+"549
+[; ;main.c: 549:         {
 {
-"547
-[; ;main.c: 547:             controlBotones();
-[e ( _controlBotones ..  ]
-"548
-[; ;main.c: 548:         }
-}
-[e :U 248 ]
-[e :U 247 ]
-[e :U 243 ]
 "550
-[; ;main.c: 550:         if (!formato) {
-[e $ ! ! != -> _formato `i -> 0 `i 249  ]
-{
-"551
-[; ;main.c: 551:             contDecHoraMostrar = &contDecHora;
-[e = _contDecHoraMostrar &U _contDecHora ]
+[; ;main.c: 550:             antiRebote(2);
+[e ( _antiRebote (1 -> -> 2 `i `ui ]
 "552
-[; ;main.c: 552:             contHoraMostrar = &contHora;
-[e = _contHoraMostrar &U _contHora ]
+[; ;main.c: 552:             if (contadorBotonTemp != 2) {
+[e $ ! != -> _contadorBotonTemp `i -> 2 `i 249  ]
+{
 "553
-[; ;main.c: 553:             PORTC = 0;
-[e = _PORTC -> -> 0 `i `uc ]
+[; ;main.c: 553:                 formato = ~formato;
+[e = _formato -> ~ -> _formato `i `uc ]
 "554
-[; ;main.c: 554:         } else {
+[; ;main.c: 554:             } else {
 }
 [e $U 250  ]
 [e :U 249 ]
 {
 "555
-[; ;main.c: 555:             verificaAmPm();
-[e ( _verificaAmPm ..  ]
+[; ;main.c: 555:                 contadorBotonTemp = 0;
+[e = _contadorBotonTemp -> -> 0 `i `s ]
 "556
-[; ;main.c: 556:             convertirFormato();
-[e ( _convertirFormato ..  ]
-"557
-[; ;main.c: 557:         }
+[; ;main.c: 556:             }
 }
 [e :U 250 ]
-"559
-[; ;main.c: 559:         if (!contadorBotonSet) {
-[e $ ! ! != -> _contadorBotonSet `i -> 0 `i 251  ]
-{
-"561
-[; ;main.c: 561:             if (contadorBotonTemp == 1 && (numeroActual != contMin))
-[e $ ! && == -> _contadorBotonTemp `i -> 1 `i != -> _numeroActual `i -> _contMin `i 252  ]
-"562
-[; ;main.c: 562:                 contadorBotonTemp = 0;
-[e = _contadorBotonTemp -> -> 0 `i `s ]
-[e :U 252 ]
-"564
-[; ;main.c: 564:             dameHoraActual();
-[e ( _dameHoraActual ..  ]
-"565
-[; ;main.c: 565:             mostrarDigitos();
-[e ( _mostrarDigitos ..  ]
-"566
-[; ;main.c: 566:         } else {
+"557
+[; ;main.c: 557:         } else if ((PORTBbits.RB0) || ((PORTBbits.RB1 || PORTBbits.RB2) && contadorBotonSet)) {
 }
-[e $U 253  ]
-[e :U 251 ]
+[e $U 251  ]
+[e :U 248 ]
+[e $ ! || != -> . . _PORTBbits 0 0 `i -> 0 `i && || != -> . . _PORTBbits 0 1 `i -> 0 `i != -> . . _PORTBbits 0 2 `i -> 0 `i != -> _contadorBotonSet `i -> 0 `i 252  ]
 {
+"558
+[; ;main.c: 558:             controlBotones();
+[e ( _controlBotones ..  ]
+"559
+[; ;main.c: 559:         }
+}
+[e :U 252 ]
+[e :U 251 ]
+[e :U 247 ]
+"561
+[; ;main.c: 561:         if (!formato) {
+[e $ ! ! != -> _formato `i -> 0 `i 253  ]
+{
+"562
+[; ;main.c: 562:             contDecHoraMostrar = &contDecHora;
+[e = _contDecHoraMostrar &U _contDecHora ]
+"563
+[; ;main.c: 563:             contHoraMostrar = &contHora;
+[e = _contHoraMostrar &U _contHora ]
+"564
+[; ;main.c: 564:             PORTC = 0;
+[e = _PORTC -> -> 0 `i `uc ]
+"565
+[; ;main.c: 565:         } else {
+}
+[e $U 254  ]
+[e :U 253 ]
+{
+"566
+[; ;main.c: 566:             verificaAmPm();
+[e ( _verificaAmPm ..  ]
 "567
-[; ;main.c: 567:             parpadearDigitos();
-[e ( _parpadearDigitos ..  ]
+[; ;main.c: 567:             convertirFormato();
+[e ( _convertirFormato ..  ]
 "568
 [; ;main.c: 568:         }
 }
-[e :U 253 ]
-"569
-[; ;main.c: 569:     }
-}
-[e :U 239 ]
-[e $U 240  ]
-[e :U 241 ]
+[e :U 254 ]
 "570
-[; ;main.c: 570:     return;
-[e $UE 238  ]
-"571
-[; ;main.c: 571: }
-[e :UE 238 ]
+[; ;main.c: 570:         if (!contadorBotonSet) {
+[e $ ! ! != -> _contadorBotonSet `i -> 0 `i 255  ]
+{
+"572
+[; ;main.c: 572:             if (contadorBotonTemp == 1 && (numeroActual != contMin))
+[e $ ! && == -> _contadorBotonTemp `i -> 1 `i != -> _numeroActual `i -> _contMin `i 256  ]
+"573
+[; ;main.c: 573:                 contadorBotonTemp = 0;
+[e = _contadorBotonTemp -> -> 0 `i `s ]
+[e :U 256 ]
+"575
+[; ;main.c: 575:             dameHoraActual();
+[e ( _dameHoraActual ..  ]
+"576
+[; ;main.c: 576:             mostrarDigitos();
+[e ( _mostrarDigitos ..  ]
+"577
+[; ;main.c: 577:         } else {
+}
+[e $U 257  ]
+[e :U 255 ]
+{
+"578
+[; ;main.c: 578:             parpadearDigitos();
+[e ( _parpadearDigitos ..  ]
+"579
+[; ;main.c: 579:         }
+}
+[e :U 257 ]
+"580
+[; ;main.c: 580:     }
+}
+[e :U 243 ]
+[e $U 244  ]
+[e :U 245 ]
+"581
+[; ;main.c: 581:     return;
+[e $UE 242  ]
+"582
+[; ;main.c: 582: }
+[e :UE 242 ]
 }
